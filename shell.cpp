@@ -2,6 +2,17 @@
 
 using namespace std;
 
+int checkPath(char* path){
+	struct stat sb;
+	if( stat( path, &sb) != -1) {
+		if( S_ISREG( sb.st_mode ) != 0 )
+			return FILE;
+		else if (S_ISDIR (sb.st_mode) != 0 )
+			return DIR;
+	}
+	return -1;
+}
+
 char* stc(string str) {
 	char *cstr = new char[str.length() + 1];
 	strcpy(cstr, str.c_str());
@@ -72,6 +83,48 @@ void my_rename(char** argv){
 	delete [] dest;
 }
 
+bool move(char** argv){
+	bool r;
+	if (argv[3] == NULL)
+		return false;
+
+
+	if (argv[1] != NULL){
+		if (checkPath(argv[1])== FILE) r = false;
+		else if (checkPath(argv[1]) == DIR) r = true;
+		else {
+			cout << "Acho que não é o arquivo correto. Tente novamente" << endl;
+			return false;
+		}
+	} else{
+		cout << "Mover o que?\nTente de novo" << endl;
+		return false;
+	}
+	if (strcmp(argv[2], "para") == 0){
+		if (argv[3] != NULL) {
+			if (checkPath(argv[3]) == FILE){
+				cout << "Não pode mover para dentro de um arquivo :c" << endl;
+			} else if (checkPath(argv[3]) == DIR){
+				if (r == false) {
+					//TODO: Move file to path
+					cout << "MOVER ARQUIVO" <<endl;
+					return true;
+				} else {
+					//TODO: Recusively move
+					cout << "MOVER PASTA" <<endl;
+					return true;
+				}
+			} else{
+				cout << "Você deve mover para uma pasta" << endl;
+			}
+		} else{
+			cout << "Mover para onde?" << endl;
+		}
+	} else {
+		cout << "Escreva o nome 'para' para dizer onde quer mover" << endl;
+	}
+	return false;
+}
 
 bool execute(char** argv) {
 	if(strcmp(argv[0], "sair") == 0)
@@ -82,6 +135,8 @@ bool execute(char** argv) {
 		where();
 	else if(strcmp(argv[0], "renomear") == 0)
 		my_rename(argv);
+	else if(strcmp(argv[0], "mover") == 0)
+		move(argv);
 	return true;
 }
 
