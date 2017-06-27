@@ -1,10 +1,4 @@
-#include <iostream>
-#include <string>
-#include <vector>
-#include <utility>
-#include <cstring>
-#include <unistd.h>
-#include <sstream>
+#include "shell.h"
 
 using namespace std;
 
@@ -49,14 +43,45 @@ void where() {
 	delete[] path;
 }
 
+/*
+* For this routine. The user should be in the path of the file
+to rename.
+TODO: works with absolute path and all relative paths
+*/
+void my_rename(char** argv){
+	/*snprintf (argv[2], sizeof(argv[2]), "../MST/%s", argv1);
+	if (rename (file, path)) {
+		if (errno == EXDEV) {
+
+		} else {
+			perror("rename"); exit(EXIT_FAILURE);
+		};
+	}*/
+	char* source = new char[1000];
+	getcwd(source, 1000);
+	strcat(source, "/"); strcat(source, argv[1]);
+
+	char * dest = new char[1000];
+	getcwd(dest, 1000);
+	strcat(dest, "/"); strcat(dest, argv[2]);
+
+	int result = rename(source, dest);
+  if (result != 0)
+    perror( "Problema para renomear" );
+	delete [] source;
+	delete [] dest;
+}
+
+
 bool execute(char** argv) {
 	if(strcmp(argv[0], "sair") == 0)
 		return false;
-	else if(strcmp(argv[0], "entrar") == 0) 
+	else if(strcmp(argv[0], "entrar") == 0)
 		enter(argv);
-	else if(strcmp(argv[0], "onde") == 0) {
+	else if(strcmp(argv[0], "onde") == 0)
 		where();
-	}
+	else if(strcmp(argv[0], "renomear") == 0)
+		my_rename(argv);
 	return true;
 }
 
