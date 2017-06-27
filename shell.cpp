@@ -29,10 +29,10 @@ char** processInput() {
 
 void enter(char** argv) {
 	if(argv[1] == NULL)
-		cout << "Entrar aonde? Tente de novo." << endl;
+		cout << "Entrar onde? Tente de novo." << endl;
 	else{
 		if(chdir(argv[1]) != 0)
-			cout << "Não entrou" << endl;
+			cout << "Erro: não entrou na pasta." << endl;
 	}
 }
 
@@ -41,6 +41,42 @@ void where() {
 	getcwd(path, 1000);
 	cout << path << endl;
 	delete[] path;
+}
+
+void help() {
+	cout << "Aqui está a ajuda!" << endl;
+	cout << "Os comandos disponíveis são:" << endl;
+	cout << "  ajuda" << endl;
+	cout << "  entrar NOME_DA_PASTA" << endl;
+	cout << "  onde estou?" << endl;
+	cout << "  renomear NOME_DO_ARQUIVO/PASTA" << endl;
+	cout << "  criar pasta NOME_DA_PASTA" << endl;
+	cout << "  deletar pasta NOME_DA_PASTA" << endl;
+	cout << "  sair" << endl;
+}
+
+void createFolder(char** argv) {
+	if(argv[2] == NULL)
+		cout << "Qual será o nome da pasta? Tente de novo." << endl;
+	else{
+		char* path = new char[1000];
+		getcwd(path, 1000);
+		strcat(path, "/"); strcat(path, argv[2]);
+		if(mkdir(path,S_IRWXU|S_IRWXG|S_IRWXO) != 0)
+			cout << "Erro: não criou pasta." << endl;
+	}
+}
+
+void deleteFolder(char** argv) {
+	if(argv[2] == NULL)
+		cout << "Qual pasta? Tente de novo." << endl;
+	else{
+		char* path = new char[1000];
+		getcwd(path, 1000);
+		strcat(path, "/"); strcat(path, argv[2]);
+		if(rmdir(path) != 0)
+			cout << "Erro: não deletou pasta." << endl;
+	}
 }
 
 /*
@@ -82,6 +118,12 @@ bool execute(char** argv) {
 		where();
 	else if(strcmp(argv[0], "renomear") == 0)
 		my_rename(argv);
+	else if(strcmp(argv[0], "ajuda") == 0)
+		help();
+	else if(strcmp(argv[0], "criar") == 0)
+		createFolder(argv);
+	else if(strcmp(argv[0], "deletar") == 0)
+		deleteFolder(argv);
 	return true;
 }
 
