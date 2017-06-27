@@ -1,6 +1,7 @@
-#ifndef __SHELL__
-#define __SHELL__
+#ifndef __UTIL__
+#define __UTIL__
 
+#include <cstdio>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -12,7 +13,15 @@
 #include <sys/types.h> // to check file/dir
 #include <unistd.h> // to check file/dir
 
-#define DIR 0
-#define FILE 1
+#include <stdbool.h>
+
+#define NDIR 0
+#define NFILE 1
+
+int checkPath(char* path);
+
+char* stc(std::string str);
+
+void where();
 
 #endif

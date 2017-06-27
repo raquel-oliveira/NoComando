@@ -1,23 +1,7 @@
-#include "shell.h"
+#include "commands.h"
+#include "util.h"
 
 using namespace std;
-
-int checkPath(char* path){
-	struct stat sb;
-	if( stat( path, &sb) != -1) {
-		if( S_ISREG( sb.st_mode ) != 0 )
-			return FILE;
-		else if (S_ISDIR (sb.st_mode) != 0 )
-			return DIR;
-	}
-	return -1;
-}
-
-char* stc(string str) {
-	char *cstr = new char[str.length() + 1];
-	strcpy(cstr, str.c_str());
-	return cstr;
-}
 
 char** processInput() {
 	string input;
@@ -38,22 +22,6 @@ char** processInput() {
 	return argv;
 }
 
-void enter(char** argv) {
-	if(argv[1] == NULL)
-		cout << "Entrar onde? Tente de novo." << endl;
-	else{
-		if(chdir(argv[1]) != 0)
-			cout << "Erro: não entrou na pasta." << endl;
-	}
-}
-
-void where() {
-	char* path = new char[1000];
-	getcwd(path, 1000);
-	cout << path << endl;
-	delete[] path;
-}
-
 void help() {
 	cout << "Aqui está a ajuda!" << endl;
 	cout << "Os comandos disponíveis são:" << endl;
@@ -64,102 +32,6 @@ void help() {
 	cout << "  criar pasta NOME_DA_PASTA" << endl;
 	cout << "  deletar pasta NOME_DA_PASTA" << endl;
 	cout << "  sair" << endl;
-}
-
-void createFolder(char** argv) {
-	if(argv[2] == NULL)
-		cout << "Qual será o nome da pasta? Tente de novo." << endl;
-	else{
-		char* path = new char[1000];
-		getcwd(path, 1000);
-		strcat(path, "/"); strcat(path, argv[2]);
-		if(mkdir(path,S_IRWXU|S_IRWXG|S_IRWXO) != 0)
-			cout << "Erro: não criou pasta." << endl;
-	}
-}
-
-void deleteFolder(char** argv) {
-	if(argv[2] == NULL)
-		cout << "Qual pasta? Tente de novo." << endl;
-	else{
-		char* path = new char[1000];
-		getcwd(path, 1000);
-		strcat(path, "/"); strcat(path, argv[2]);
-		if(rmdir(path) != 0)
-			cout << "Erro: não deletou pasta." << endl;
-	}
-}
-
-/*
-* For this routine. The user should be in the path of the file
-to rename.
-TODO: works with absolute path and all relative paths
-*/
-void my_rename(char** argv){
-	/*snprintf (argv[2], sizeof(argv[2]), "../MST/%s", argv1);
-	if (rename (file, path)) {
-		if (errno == EXDEV) {
-
-		} else {
-			perror("rename"); exit(EXIT_FAILURE);
-		};
-	}*/
-	char* source = new char[1000];
-	getcwd(source, 1000);
-	strcat(source, "/"); strcat(source, argv[1]);
-
-	char * dest = new char[1000];
-	getcwd(dest, 1000);
-	strcat(dest, "/"); strcat(dest, argv[2]);
-
-	int result = rename(source, dest);
-  if (result != 0)
-    perror( "Problema para renomear" );
-	delete [] source;
-	delete [] dest;
-}
-
-bool move(char** argv){
-	bool r;
-	if (argv[3] == NULL)
-		return false;
-
-
-	if (argv[1] != NULL){
-		if (checkPath(argv[1])== FILE) r = false;
-		else if (checkPath(argv[1]) == DIR) r = true;
-		else {
-			cout << "Acho que não é o arquivo correto. Tente novamente" << endl;
-			return false;
-		}
-	} else{
-		cout << "Mover o que?\nTente de novo" << endl;
-		return false;
-	}
-	if (strcmp(argv[2], "para") == 0){
-		if (argv[3] != NULL) {
-			if (checkPath(argv[3]) == FILE){
-				cout << "Não pode mover para dentro de um arquivo :c" << endl;
-			} else if (checkPath(argv[3]) == DIR){
-				if (r == false) {
-					//TODO: Move file to path
-					cout << "MOVER ARQUIVO" <<endl;
-					return true;
-				} else {
-					//TODO: Recusively move
-					cout << "MOVER PASTA" <<endl;
-					return true;
-				}
-			} else{
-				cout << "Você deve mover para uma pasta" << endl;
-			}
-		} else{
-			cout << "Mover para onde?" << endl;
-		}
-	} else {
-		cout << "Escreva o nome 'para' para dizer onde quer mover" << endl;
-	}
-	return false;
 }
 
 bool execute(char** argv) {
