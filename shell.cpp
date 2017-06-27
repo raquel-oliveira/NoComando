@@ -14,24 +14,6 @@ char* stc(string str) {
 	return cstr;
 }
 
-/*char** processInput() {
-	vector<char*> argv;
-	char* arg;
-	string input;
-	getline(cin, input);
-	cinput = stc(input);
-	arg = strtok(cinput, " ");
-  	while (arg != NULL){
-    	argv.push_back(arg);
-    	arg = strtok(NULL, " ");
-  	}
-  	argv.push_back(arg);
-  	cout << 1 << endl;
-	cout << argv[0] << endl;
-	cout << 2 << endl;
-  	return &argv[0];
-}*/
-
 char** processInput() {
 	string input;
 	getline(cin, input);
@@ -53,16 +35,18 @@ char** processInput() {
 
 void enter(char** argv) {
 	if(argv[1] == NULL)
-		cout << "> Entrar aonde? Tente de novo." << endl;
+		cout << "Entrar aonde? Tente de novo." << endl;
 	else{
 		if(chdir(argv[1]) != 0)
-			cout << "> Não entrou" << endl;
+			cout << "Não entrou" << endl;
 	}
 }
 
-void where(char** argv) {
-	char* path = get_current_dir_name();
-	cout << "> " << path << endl;
+void where() {
+	char* path = new char[1000];
+	getcwd(path, 1000);
+	cout << path << endl;
+	delete[] path;
 }
 
 bool execute(char** argv) {
@@ -71,7 +55,7 @@ bool execute(char** argv) {
 	else if(strcmp(argv[0], "entrar") == 0) 
 		enter(argv);
 	else if(strcmp(argv[0], "onde") == 0) {
-		where(argv);
+		where();
 	}
 	return true;
 }
