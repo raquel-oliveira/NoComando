@@ -18,10 +18,30 @@
 #define NDIR 0
 #define NFILE 1
 
-int checkPath(char* path);
+/*
+* Given a path
+* @return 1(NFILE) if is a file
+* @return 0(NDIR) if is a directory
+* @return -1 otherwise.
+*/
+int check_path(char* path);
 
+/*
+* @param string
+* @return the same string of input as char *
+*/
 char* stc(std::string str);
 
-void where();
+// Prints current path
+void pwd();
+
+//Base name of a file
+const char *get_basename(const char *filename);
+
+/*
+* @return true if path has '.' or '..'
+* @return false otherwise
+*/
+bool is_dot_dir(const char *filename);
 
 #endif

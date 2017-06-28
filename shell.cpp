@@ -40,7 +40,7 @@ bool execute(char** argv) {
 	else if(strcmp(argv[0], "entrar") == 0)
 		enter(argv);
 	else if(strcmp(argv[0], "onde") == 0)
-		where();
+		pwd();
 	else if(strcmp(argv[0], "renomear") == 0)
 		my_rename(argv);
 	else if(strcmp(argv[0], "ajuda") == 0)

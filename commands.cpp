@@ -71,7 +71,7 @@ bool move(char** argv){
 		return false;
 
 	if (argv[1] != NULL){
-		if (checkPath(argv[1]) == -1) {
+		if (check_path(argv[1]) == -1) {
 			std::cout << "Acho que não é o arquivo correto. Tente novamente" << std::endl;
 			return false;
 		}
@@ -81,9 +81,9 @@ bool move(char** argv){
 	}
 	if (strcmp(argv[2], "para") == 0){
 		if (argv[3] != NULL) {
-			if (checkPath(argv[3]) == NFILE){
+			if (check_path(argv[3]) == NFILE){
 				std::cout << "Não pode mover para dentro de um arquivo :c" << std::endl;
-			} else if (checkPath(argv[3]) == NDIR){
+			} else if (check_path(argv[3]) == NDIR){
 					my_rename(argv);
 			} else{
 				std::cout << "Você deve mover para uma pasta" << std::endl;

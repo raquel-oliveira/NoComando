@@ -1,6 +1,6 @@
 #include "util.h"
 
-int checkPath(char* path){
+int check_path(char* path){
 	struct stat sb;
 	if( stat( path, &sb) != -1) {
 		if( S_ISREG( sb.st_mode ) != 0 )
@@ -17,9 +17,19 @@ char* stc(std::string str) {
 	return cstr;
 }
 
-void where() {
+void pwd() {
 	char* path = new char[1000];
 	getcwd(path, 1000);
 	std::cout << path << std::endl;
 	delete[] path;
+}
+
+const char *get_basename(const char *filename) {
+	const char *b = strrchr(filename, '/');
+	return (b == NULL) ? filename : (b + 1);
+}
+
+bool is_dot_dir(const char *filename) {
+	return (filename[0] == '.')
+		     && (filename[1] == '\0' || (filename[1] == '.' && filename[2] == '\0'));
 }
