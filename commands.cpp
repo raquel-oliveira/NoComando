@@ -33,16 +33,45 @@ void deleteFolder(char** argv) {
 	}
 }
 
+void my_rename(char** argv){
+	if (argv[3] == NULL){
+		return;
+	}
+	if (strcmp(argv[2], "para") != 0){
+		std::cout << "Escreva o nome 'para' para dizer onde quer mover" << std::endl;
+		return;
+	}
+
+	char* source = new char[1000];
+	getcwd(source, 1000);
+	strcat(source, "/"); strcat(source, argv[1]);
+
+	char * dest = new char[1000];
+	if (strcmp(argv[0], "mover") == 0){
+		strcat(dest, argv[3]);
+		strcat(dest, "/");
+		strcat(dest, argv[1]);
+	}
+	else if (strcmp(argv[0], "renomear") == 0){
+		getcwd(dest, 1000);
+		strcat(dest, "/"); strcat(dest, argv[3]);
+	}
+
+	int result = rename(source, dest);
+  if (result != 0)
+    perror( "Problema" );
+	delete [] source;
+	delete [] dest;
+}
+
+//TODO: move something to the actual directory
+//TODO: don't use same as rename, use something that allows the move of files/dir from diferent source paths
 bool move(char** argv){
-	bool r;
 	if (argv[3] == NULL)
 		return false;
 
-
 	if (argv[1] != NULL){
-		if (checkPath(argv[1])== NFILE) r = false;
-		else if (checkPath(argv[1]) == NDIR) r = true;
-		else {
+		if (checkPath(argv[1]) == -1) {
 			std::cout << "Acho que não é o arquivo correto. Tente novamente" << std::endl;
 			return false;
 		}
@@ -55,15 +84,7 @@ bool move(char** argv){
 			if (checkPath(argv[3]) == NFILE){
 				std::cout << "Não pode mover para dentro de um arquivo :c" << std::endl;
 			} else if (checkPath(argv[3]) == NDIR){
-				if (r == false) {
-					//TODO: Move file to path
-					std::cout << "MOVER ARQUIVO" << std::endl;
-					return true;
-				} else {
-					//TODO: Recusively move
-					std::cout << "MOVER PASTA" << std::endl;
-					return true;
-				}
+					my_rename(argv);
 			} else{
 				std::cout << "Você deve mover para uma pasta" << std::endl;
 			}
@@ -74,33 +95,4 @@ bool move(char** argv){
 		std::cout << "Escreva o nome 'para' para dizer onde quer mover" << std::endl;
 	}
 	return false;
-}
-
-/*
-* For this routine. The user should be in the path of the file
-to rename.
-TODO: works with absolute path and all relative paths
-*/
-void my_rename(char** argv){
-	/*snprintf (argv[2], sizeof(argv[2]), "../MST/%s", argv1);
-	if (rename (file, path)) {
-		if (errno == EXDEV) {
-
-		} else {
-			perror("rename"); exit(EXIT_FAILURE);
-		};
-	}*/
-	char* source = new char[1000];
-	getcwd(source, 1000);
-	strcat(source, "/"); strcat(source, argv[1]);
-
-	char * dest = new char[1000];
-	getcwd(dest, 1000);
-	strcat(dest, "/"); strcat(dest, argv[2]);
-
-	int result = rename(source, dest);
-  if (result != 0)
-    perror( "Problema para renomear" );
-	delete [] source;
-	delete [] dest;
 }
