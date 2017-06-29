@@ -21,5 +21,4 @@ FORMS += \
 RESOURCES += \
     terminal.qrc
 
-target.path = $$[QT_INSTALL_EXAMPLES]/serialport/terminal
-INSTALLS += target
+CONFIG  += c++11
