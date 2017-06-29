@@ -1,15 +1,15 @@
 #include "util.h"
 
 void help() {
-	cout << "Aqui está a ajuda!" << endl;
-	cout << "Os comandos disponíveis são:" << endl;
-	cout << "  ajuda" << endl;
-	cout << "  entrar NOME_DA_PASTA" << endl;
-	cout << "  onde estou?" << endl;
-	cout << "  renomear NOME_DO_ARQUIVO/PASTA" << endl;
-	cout << "  criar pasta NOME_DA_PASTA" << endl;
-	cout << "  deletar pasta NOME_DA_PASTA" << endl;
-	cout << "  sair" << endl;
+	std::cout << "Aqui está a ajuda!" << std::endl;
+	std::cout << "Os comandos disponíveis são:" << std::endl;
+	std::cout << "  ajuda" << std::endl;
+	std::cout << "  entrar NOME_DA_PASTA" << std::endl;
+	std::cout << "  onde estou?" << std::endl;
+	std::cout << "  renomear NOME_DO_ARQUIVO/PASTA" << std::endl;
+	std::cout << "  criar pasta NOME_DA_PASTA" << std::endl;
+	std::cout << "  deletar pasta NOME_DA_PASTA" << std::endl;
+	std::cout << "  sair" << std::endl;
 }
 
 void enter(char** argv) {
