@@ -3,6 +3,8 @@
 
 #include <cstring>
 
+void help();
+
 void enter(char** argv);
 
 void createFolder(char** argv);

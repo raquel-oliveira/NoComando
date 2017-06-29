@@ -22,18 +22,6 @@ char** processInput() {
 	return argv;
 }
 
-void help() {
-	cout << "Aqui está a ajuda!" << endl;
-	cout << "Os comandos disponíveis são:" << endl;
-	cout << "  ajuda" << endl;
-	cout << "  entrar NOME_DA_PASTA" << endl;
-	cout << "  onde estou?" << endl;
-	cout << "  renomear NOME_DO_ARQUIVO/PASTA" << endl;
-	cout << "  criar pasta NOME_DA_PASTA" << endl;
-	cout << "  deletar pasta NOME_DA_PASTA" << endl;
-	cout << "  sair" << endl;
-}
-
 bool execute(char** argv) {
 	if(strcmp(argv[0], "sair") == 0)
 		return false;
