@@ -15,4 +15,6 @@ bool move(char** argv);
 
 void my_rename(char** argv);
 
+void ls();
+
 #endif

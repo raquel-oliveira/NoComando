@@ -108,3 +108,19 @@ bool move(char** argv){
 	}
 	return false;
 }
+
+void ls() {
+	char* path = new char[1000];
+	getcwd(path, 1000);
+	DIR *dir;
+	struct dirent *drnt;
+	dir = opendir(path);
+	if(dir != NULL) {
+		drnt = readdir(dir);
+		while(drnt != NULL)  {
+            std::cout << drnt->d_name << std::endl;;
+            drnt = readdir(dir);
+        }
+	}
+	closedir(dir);
+}

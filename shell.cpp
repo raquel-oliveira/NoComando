@@ -39,6 +39,8 @@ bool execute(char** argv) {
 		deleteFolder(argv);
 	else if(strcmp(argv[0], "mover") == 0)
 		move(argv);
+	else if(strcmp(argv[0], "listar") == 0)
+		ls();
 	return true;
 }
 

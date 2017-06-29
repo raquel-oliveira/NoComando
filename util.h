@@ -12,6 +12,7 @@
 #include <sys/stat.h> // to check file/dir
 #include <sys/types.h> // to check file/dir
 #include <unistd.h> // to check file/dir
+#include <dirent.h>
 
 #include <stdbool.h>
 
