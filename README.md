@@ -63,6 +63,10 @@ Repete o último comando
 
 Apresenta porcentagem de RAM utlizada e total de page swaps
 
+- **limpar**
+
+Apaga o histórico de comandos / Limpa o shell
+
 - **sair**
 
 Encerra o programa

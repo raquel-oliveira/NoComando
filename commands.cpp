@@ -13,6 +13,7 @@ void help() {
 	std::cout << "  mover NOME para NOME_DA_PASTA" << std::endl;
 	std::cout << "  repetir" << std::endl;
 	std::cout << "  monitorar" << std::endl;
+	std::cout << "  limpar" << std::endl;
 	std::cout << "  sair" << std::endl;
 }
 
@@ -169,7 +170,7 @@ void ls() {
 }
 
 double findMemValue(const char* buffer) {
-	while((*buffer) && (!isdigit(*buffer))) 
+	while((*buffer) && (!isdigit(*buffer)))
    		buffer++;
    	return isdigit(*buffer) ? atof(buffer) : -1.0;
 }
@@ -198,7 +199,7 @@ void monitoring() {
         		double val = findMemValue(buffer);
         		totalSwap += val;
         	}
-         	i++; 
+         	i++;
       	}
       	pclose(file);
 		if (totalPages > 0.0) {

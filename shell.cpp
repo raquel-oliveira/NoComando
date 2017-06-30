@@ -50,6 +50,8 @@ bool execute(char** argv, char** previous) {
 		ls();
 	else if(strcmp(argv[0], "monitorar") == 0)
 		monitoring();
+	else if(strcmp(argv[0], "limpar") == 0)
+		system("clear");
 	else if(strcmp(argv[0], "repetir") == 0) {
 		if(previous != NULL)
 			execute(previous, NULL);

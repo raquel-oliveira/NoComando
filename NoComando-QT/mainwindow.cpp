@@ -27,8 +27,10 @@ MainWindow::MainWindow(QWidget *parent) :
 
    connect(ui->gui_go, SIGNAL (released()), this, SLOT (handleButton()));
    connect(ui->gui_input, SIGNAL (returnPressed()), this, SLOT (handleButton()));
-   // To no start in the Debug folder of QTApplication
+   // To do not start in the Debug folder of QTApplication
    chdir("/Users");
+
+   //Works as placeholder
    ui->gui_historic->appendHtml("<span style='color: grey'>"+QString::fromStdString(help())+"</span>");
 }
 
@@ -48,7 +50,11 @@ void MainWindow::handleButton()
         char ** argv = inputByToken(ui->gui_input->text().toStdString());
 
         //clear input
-        ui->gui_input->setText("");
+        ui->gui_input->clear();
+
+        if (strcmp(argv[0], "limpar") == 0){
+            ui->gui_historic->clear();
+        }
 
         std::string output = execute(argv, previous);
         if(previous != NULL && strcmp(argv[0], "repetir") != 0) {
