@@ -19,10 +19,10 @@ MainWindow::MainWindow(QWidget *parent) :
     // To historic
     ui->gui_historic->setEnabled(true);
     ui->gui_historic->setReadOnly(true);
-    ui->gui_historic->setPalette(pInput);
+    ui->gui_historic->setPalette(p);
 
     //To Input
-    ui->gui_input->setPalette(pInput);
+    ui->gui_input->setPalette(p);
 
    connect(ui->gui_go, SIGNAL (released()), this, SLOT (handleButton()));
    // To no start in the Debug folder of QTApplication
@@ -38,14 +38,15 @@ void MainWindow::handleButton()
  {
     // Update historic with input
     if (ui->gui_input->text() != NULL){
-        ui->gui_historic->setPalette(pInput);
+        ui->gui_historic->setPalette(p);
         ui->gui_historic->appendPlainText(ui->gui_input->text());
+
+        //Update historic with output if has one
+        char ** inp = inputByToken(ui->gui_input->text().toStdString());
 
         //clear input
         ui->gui_input->setText("");
 
-        //Update historic with output if has one
-        char ** inp = inputByToken(ui->gui_input->text().toStdString());
         std::string output = execute(inp);
         if (!output.empty()){
             ui->gui_historic->appendPlainText(QString::fromStdString(output));
