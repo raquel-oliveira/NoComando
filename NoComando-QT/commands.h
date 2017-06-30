@@ -20,4 +20,8 @@ std::string my_rename(char**);
 
 std::string ls();
 
+double findMemValue(const char*);
+
+std::string monitoring();
+
 #endif

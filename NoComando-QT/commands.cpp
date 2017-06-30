@@ -179,3 +179,49 @@ std::string ls() {
     closedir(dir);
     return d;
 }
+
+double findMemValue(const char* buffer) {
+    while((*buffer) && (!isdigit(*buffer)))
+        buffer++;
+    return isdigit(*buffer) ? atof(buffer) : -1.0;
+}
+
+std::string monitoring() {
+    std::string s = "";
+    FILE * file = popen("/usr/bin/vm_stat", "r");
+    if (file) {
+        double pagesUsed = 0.0, totalPages = 0.0, totalSwap = 0.0;
+        char buffer[512];
+        int i = 0;
+        while(fgets(buffer, sizeof(buffer), file) != NULL) {
+            if (strncmp(buffer, "Pages", 5) == 0 && i < 7) {
+                double val = findMemValue(buffer);
+                if (val >= 0.0) {
+                    if ((strncmp(buffer, "Pages wired", 11) == 0)||(strncmp(buffer, "Pages active", 12) == 0)) {
+                        pagesUsed += val;
+                    }
+                    totalPages += val;
+                }
+            }
+            if (strncmp(buffer, "Swap", 4) == 0) {
+                double val = findMemValue(buffer);
+                totalSwap += val;
+            }
+            if (strncmp(buffer, "Swap", 4) == 0) {
+                double val = findMemValue(buffer);
+                totalSwap += val;
+            }
+            i++;
+        }
+        pclose(file);
+        if (totalPages > 0.0) {
+            s += "RAM utilizada no momento: ";
+            s += std::to_string((float)(pagesUsed/totalPages));
+            s += "%<br>";
+            s += "Total de swaps: ";
+            s += std::to_string(totalSwap);
+            s += "<br>";
+        }
+    }
+    return s;
+}

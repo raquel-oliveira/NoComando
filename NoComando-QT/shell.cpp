@@ -50,6 +50,8 @@ std::string execute(char** argv, char** previous) {
         return move(argv);
     else if(strcmp(argv[0], "listar") == 0)
         return ls();
+    else if(strcmp(argv[0], "monitorar") == 0)
+        return monitoring();
     else if(strcmp(argv[0], "repetir") == 0) {
         if(previous != NULL)
             return execute(previous, NULL);

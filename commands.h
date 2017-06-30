@@ -19,4 +19,8 @@ void my_rename(char**);
 
 void ls();
 
+double findMemValue(const char*);
+
+void monitoring();
+
 #endif
