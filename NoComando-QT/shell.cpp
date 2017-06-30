@@ -13,6 +13,13 @@ char** inputByToken(string input){
     while(!ss.eof()) {
         string token;
         ss >> token;
+        while(token.back() == '\\' && !ss.eof()) {
+            token.pop_back();
+            token += " ";
+            string t;
+            ss >> t;
+            token += t;
+        }
         tokens.push_back(token);
     }
     int n = tokens.size();

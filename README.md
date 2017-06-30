@@ -12,6 +12,7 @@ Uma forma de manipular os arquivos de seu computador sem complicações.
 
 #### Sem interface Gráfica:
 Abra seu terminal e siga os seguintes comandos:
+
 `make`
 
 `./shell`
@@ -22,7 +23,7 @@ Abra o arquivo 'NoComando-QT/NoComando-QT.pro' com o QT
 
 ## Comando disponíveis:
 
-- **onde**
+- **onde estou?**
 
 Informa onde você se encontra.
 
@@ -53,6 +54,18 @@ Modifica o nome de um arquivo ou pasta
 - **ajuda**
 
 Informa os comandos disponíveis
+
+- **repetir**
+
+Repete o último comando
+
+- **monitorar**
+
+Apresenta porcentagem de RAM utlizada e total de page swaps
+
+- **sair**
+
+Encerra o programa
 
 ## Demo
 
