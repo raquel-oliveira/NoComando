@@ -121,7 +121,8 @@ std::string ls() {
         drnt = readdir(dir);
         while(drnt != NULL)  {
             d += drnt->d_name;
-            d += "\n";
+            //d += "\n";
+            d += "<br>";
             drnt = readdir(dir);
         }
     }

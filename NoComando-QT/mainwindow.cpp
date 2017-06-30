@@ -49,7 +49,8 @@ void MainWindow::handleButton()
 
         std::string output = execute(inp);
         if (!output.empty()){
-            ui->gui_historic->appendPlainText(QString::fromStdString(output));
+            ui->gui_historic->appendHtml("<span style='color: grey'>"+QString::fromStdString(output)+"</span>");
+
         }
     }
  }
