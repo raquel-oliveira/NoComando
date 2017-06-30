@@ -20,8 +20,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    QPalette pInput;
-    QPalette pOutput;
+    QPalette p;
 };
 
 #endif // MAINWINDOW_H
