@@ -29,6 +29,7 @@ MainWindow::MainWindow(QWidget *parent) :
    connect(ui->gui_input, SIGNAL (returnPressed()), this, SLOT (handleButton()));
    // To no start in the Debug folder of QTApplication
    chdir("/Users");
+   ui->gui_historic->appendHtml("<span style='color: grey'>"+QString::fromStdString(help())+"</span>");
 }
 
 MainWindow::~MainWindow()

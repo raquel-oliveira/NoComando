@@ -13,6 +13,7 @@ std::string help() {
     s += "  <span style='color: white'>deletar</span> NOME<br>";
     s += "  <span style='color: white'>mover</span> NOME <span style='color: white'>para</span> NOME_DA_PASTA<br>";
     s += "  <span style='color: white'>repetir</span><br>";
+    s += "  <span style='color: white'>monitorar</span><br>";
     s += "  <span style='color: white'>sair</span><br>";
     return s;
 }

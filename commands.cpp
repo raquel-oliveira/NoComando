@@ -12,6 +12,7 @@ void help() {
 	std::cout << "  deletar NOME" << std::endl;
 	std::cout << "  mover NOME para NOME_DA_PASTA" << std::endl;
 	std::cout << "  repetir" << std::endl;
+	std::cout << "  monitorar" << std::endl;
 	std::cout << "  sair" << std::endl;
 }
 
