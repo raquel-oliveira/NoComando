@@ -1,15 +1,20 @@
 #include "util.h"
 
-void help() {
-    std::cout << "Aqui está a ajuda!" << std::endl;
-    std::cout << "Os comandos disponíveis são:" << std::endl;
-    std::cout << "  ajuda" << std::endl;
-    std::cout << "  entrar NOME_DA_PASTA" << std::endl;
-    std::cout << "  onde estou?" << std::endl;
-    std::cout << "  renomear NOME_DO_ARQUIVO/PASTA" << std::endl;
-    std::cout << "  criar pasta NOME_DA_PASTA" << std::endl;
-    std::cout << "  deletar pasta NOME_DA_PASTA" << std::endl;
-    std::cout << "  sair" << std::endl;
+std::string help() {
+    std::string s = "";
+    s += "Aqui está a ajuda!<br>";
+    s += "Os comandos disponíveis são:<br>";
+    s += "  <span style='color: white'>ajuda</span><br>";
+    s += "  <span style='color: white'>onde estou?</span><br>";
+    s += "  <span style='color: white'>listar</span><br>";
+    s += "  <span style='color: white'>entrar</span> NOME_DA_PASTA<br>";
+    s += "  <span style='color: white'>renomear</span> NOME_ATUAL <span style='color: white'>para</span> NOVO_NOME<br>";
+    s += "  <span style='color: white'>criar pasta</span> NOME_DA_PASTA<br>";
+    s += "  <span style='color: white'>deletar</span> NOME<br>";
+    s += "  <span style='color: white'>mover</span> NOME <span style='color: white'>para</span> NOME_DA_PASTA<br>";
+    s += "  <span style='color: white'>repetir</span><br>";
+    s += "  <span style='color: white'>sair</span><br>";
+    return s;
 }
 
 std::string enter(char** argv) {
@@ -152,7 +157,7 @@ std::string move(char** argv){
     } else {
         return "Escreva o nome 'para' para dizer onde quer mover";
     }
-    return "Tente de novo";
+    return "";
 }
 
 std::string ls() {
@@ -166,7 +171,6 @@ std::string ls() {
         drnt = readdir(dir);
         while(drnt != NULL)  {
             d += drnt->d_name;
-            //d += "\n";
             d += "<br>";
             drnt = readdir(dir);
         }

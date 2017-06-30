@@ -31,9 +31,9 @@ char** processInput() {
     return inputByToken(input);
 }
 
-std::string execute(char** argv) {
+std::string execute(char** argv, char** previous) {
     if(strcmp(argv[0], "sair") == 0)
-        return "Tchau!";
+        return ":";
     else if(strcmp(argv[0], "entrar") == 0)
         return enter(argv);
     else if(strcmp(argv[0], "onde") == 0)
@@ -50,6 +50,10 @@ std::string execute(char** argv) {
         return move(argv);
     else if(strcmp(argv[0], "listar") == 0)
         return ls();
+    else if(strcmp(argv[0], "repetir") == 0) {
+        if(previous != NULL)
+            return execute(previous, NULL);
+    }
     return "";
 }
 

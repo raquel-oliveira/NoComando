@@ -21,6 +21,7 @@ private slots:
 private:
     Ui::MainWindow *ui;
     QPalette p;
+    char** previous;
 };
 
 #endif // MAINWINDOW_H

@@ -9,6 +9,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    previous = NULL;
 
     //GUI General
     p = palette();
@@ -43,15 +44,27 @@ void MainWindow::handleButton()
         ui->gui_historic->appendPlainText(ui->gui_input->text());
 
         //Update historic with output if has one
-        char ** inp = inputByToken(ui->gui_input->text().toStdString());
+        char ** argv = inputByToken(ui->gui_input->text().toStdString());
 
         //clear input
         ui->gui_input->setText("");
 
-        std::string output = execute(inp);
+        std::string output = execute(argv, previous);
+        if(previous != NULL && strcmp(argv[0], "repetir") != 0) {
+            int i = 0;
+            while(previous[i] != NULL) {
+                delete[] previous[i];
+                i++;
+            }
+            delete[] previous;
+         }
+         if(strcmp(argv[0], "repetir") != 0)
+            previous = argv;
         if (!output.empty()){
+            if(output.compare(":") == 0) {
+                QApplication::quit();
+            }
             ui->gui_historic->appendHtml("<span style='color: grey'>"+QString::fromStdString(output)+"</span>");
-
         }
     }
  }

@@ -4,11 +4,14 @@ void help() {
 	std::cout << "Aqui está a ajuda!" << std::endl;
 	std::cout << "Os comandos disponíveis são:" << std::endl;
 	std::cout << "  ajuda" << std::endl;
-	std::cout << "  entrar NOME_DA_PASTA" << std::endl;
 	std::cout << "  onde estou?" << std::endl;
-	std::cout << "  renomear NOME_DO_ARQUIVO/PASTA" << std::endl;
+	std::cout << "  listar" << std::endl;
+	std::cout << "  entrar NOME_DA_PASTA" << std::endl;
+	std::cout << "  renomear NOME_ATUAL para NOVO_NOME" << std::endl;
 	std::cout << "  criar pasta NOME_DA_PASTA" << std::endl;
-	std::cout << "  deletar pasta NOME_DA_PASTA" << std::endl;
+	std::cout << "  deletar NOME" << std::endl;
+	std::cout << "  mover NOME para NOME_DA_PASTA" << std::endl;
+	std::cout << "  repetir" << std::endl;
 	std::cout << "  sair" << std::endl;
 }
 

@@ -7,6 +7,6 @@ using namespace std;
 * @param input
 * @return char** input separated by empty space
 */
-char** inputByToken(string input);
+char** inputByToken(string);
 
-std::string execute(char** argv);
+std::string execute(char**, char**);
