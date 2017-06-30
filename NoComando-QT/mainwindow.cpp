@@ -27,7 +27,7 @@ MainWindow::MainWindow(QWidget *parent) :
    connect(ui->gui_go, SIGNAL (released()), this, SLOT (handleButton()));
    connect(ui->gui_input, SIGNAL (returnPressed()), this, SLOT (handleButton()));
    // To no start in the Debug folder of QTApplication
-   chdir("/Users/Raquel/Desktop/NoComando");
+   chdir("/Users");
 }
 
 MainWindow::~MainWindow()

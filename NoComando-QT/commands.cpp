@@ -22,7 +22,7 @@ std::string enter(char** argv) {
     }
 }
 
-std::string createFolder(char** argv) {
+std::string createDirectory(char** argv) {
     if(argv[2] == NULL)
         return "Qual pasta?\nTente de novo.";
     else{
@@ -35,16 +35,61 @@ std::string createFolder(char** argv) {
     }
 }
 
-std::string deleteFolder(char** argv) {
-    if(argv[2] == NULL)
-        return "Qual pasta?\nTente de novo.";
+std::string recursiveDeleteDirectory(const char* path) {
+    char* newPath;
+    DIR *dir;
+    struct dirent *drnt;
+    dir = opendir(path);
+    if(dir != NULL) {
+        drnt = readdir(dir);
+        while(drnt != NULL)  {
+            if(strcmp(drnt->d_name,".") != 0 && strcmp(drnt->d_name,"..") != 0) {
+                newPath = new char[strlen(path) + strlen(drnt->d_name) + 2];
+                strcpy(newPath, path);
+                strcat(newPath, "/");
+                strcat(newPath, drnt->d_name);
+                struct stat st;
+                if (!stat(newPath, &st)) {
+                    if (S_ISDIR(st.st_mode)) {
+                        std::string s = recursiveDeleteDirectory(newPath);
+                        if(!s.empty())
+                            return s;
+                    }
+                    else {
+                        if(unlink(newPath) != 0)
+                            return "Erro: não deletou arquivo/pasta.";
+                    }
+                }
+                delete[] newPath;
+            }
+            drnt = readdir(dir);
+        }
+        closedir(dir);
+    }
+    if(rmdir(path))
+        return "Erro: não deletou ";
+    return "";
+}
+
+std::string deleteFileOrDirectory(char** argv) {
+    if(argv[1] == NULL)
+        return "Qual arquivo/pasta? Tente de novo.";
     else{
         char* path = new char[1000];
         getcwd(path, 1000);
-        strcat(path, "/"); strcat(path, argv[2]);
-        if(rmdir(path) != 0)
-            return "Erro: não deletou pasta.";
-        return "";
+        strcat(path, "/"); strcat(path, argv[1]);
+        struct stat st;
+        if (!stat(path, &st)) {
+            if (S_ISDIR(st.st_mode))
+                return recursiveDeleteDirectory(path);
+            else {
+                if(unlink(path) !=0 )
+                    return "Erro: não deletou arquivo/pasta.";
+                return "";
+            }
+        }
+        else
+            return "Erro no stat";
     }
 }
 

@@ -6,15 +6,17 @@
 
 std::string help();
 
-std::string enter(char** argv);
+std::string enter(char**);
 
-std::string createFolder(char** argv);
+std::string createDirectory(char**);
 
-std::string deleteFolder(char** argv);
+std::string deleteFileOrDirectory(char**);
 
-std::string move(char** argv);
+std::string recursiveDeleteDirectory(const char*);
 
-std::string my_rename(char** argv);
+std::string move(char**);
+
+std::string my_rename(char**);
 
 std::string ls();
 

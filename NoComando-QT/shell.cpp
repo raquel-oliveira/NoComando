@@ -43,9 +43,9 @@ std::string execute(char** argv) {
     else if(strcmp(argv[0], "ajuda") == 0)
         return help();
     else if(strcmp(argv[0], "criar") == 0)
-        return createFolder(argv);
+        return createDirectory(argv);
     else if(strcmp(argv[0], "deletar") == 0)
-        return deleteFolder(argv);
+        return deleteFileOrDirectory(argv);
     else if(strcmp(argv[0], "mover") == 0)
         return move(argv);
     else if(strcmp(argv[0], "listar") == 0)

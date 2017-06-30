@@ -21,7 +21,7 @@ void enter(char** argv) {
 	}
 }
 
-void createFolder(char** argv) {
+void createDirectory(char** argv) {
 	if(argv[2] == NULL)
 		std::cout << "Qual será o nome da pasta? Tente de novo." << std::endl;
 	else{
@@ -33,15 +33,54 @@ void createFolder(char** argv) {
 	}
 }
 
-void deleteFolder(char** argv) {
-	if(argv[2] == NULL)
-		std::cout << "Qual pasta? Tente de novo." << std::endl;
+void recursiveDeleteDirectory(const char* path) {
+	char* newPath;
+	DIR *dir;
+	struct dirent *drnt;
+	dir = opendir(path);
+	if(dir != NULL) {
+		drnt = readdir(dir);
+		while(drnt != NULL)  {
+            if(strcmp(drnt->d_name,".") != 0 && strcmp(drnt->d_name,"..") != 0) {
+            	newPath = new char[strlen(path) + strlen(drnt->d_name) + 2];
+            	strcpy(newPath, path);
+            	strcat(newPath, "/");
+            	strcat(newPath, drnt->d_name);
+            	struct stat st;
+            	if (!stat(newPath, &st)) {
+                	if (S_ISDIR(st.st_mode))
+                   		recursiveDeleteDirectory(newPath);
+                	else {
+	                	if(unlink(newPath) != 0)
+	                		std::cout << "Erro: não deletou arquivo/pasta." << std::endl;
+	                }
+             	}
+             	delete[] newPath;
+            }
+            drnt = readdir(dir);
+        }
+        closedir(dir);
+	}
+	if(rmdir(path))
+		std::cout << "Erro: não deletou " << path << std::endl;
+}
+
+void deleteFileOrDirectory(char** argv) {
+	if(argv[1] == NULL)
+		std::cout << "Qual arquivo/pasta? Tente de novo." << std::endl;
 	else{
 		char* path = new char[1000];
 		getcwd(path, 1000);
-		strcat(path, "/"); strcat(path, argv[2]);
-		if(rmdir(path) != 0)
-			std::cout << "Erro: não deletou pasta." << std::endl;
+		strcat(path, "/"); strcat(path, argv[1]);
+		struct stat st;
+        if (!stat(path, &st)) {
+            if (S_ISDIR(st.st_mode))
+                recursiveDeleteDirectory(path);
+            else {
+	            if(unlink(path) !=0 )
+	            	std::cout << "Erro: não deletou arquivo/pasta." << std::endl;
+	        }
+        }
 	}
 }
 
@@ -118,9 +157,9 @@ void ls() {
 	if(dir != NULL) {
 		drnt = readdir(dir);
 		while(drnt != NULL)  {
-            std::cout << drnt->d_name << std::endl;;
+            std::cout << drnt->d_name << std::endl;
             drnt = readdir(dir);
         }
+        closedir(dir);
 	}
-	closedir(dir);
 }

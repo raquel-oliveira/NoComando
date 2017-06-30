@@ -5,15 +5,17 @@
 
 void help();
 
-void enter(char** argv);
+void enter(char**);
 
-void createFolder(char** argv);
+void createDirectory(char**);
 
-void deleteFolder(char** argv);
+void deleteFileOrDirectory(char**);
 
-bool move(char** argv);
+void recursiveDeleteDirectory(const char*);
 
-void my_rename(char** argv);
+bool move(char**);
+
+void my_rename(char**);
 
 void ls();
 
